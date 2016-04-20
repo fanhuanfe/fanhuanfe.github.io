@@ -52,15 +52,22 @@
 
 
 
-<meta name="description" content="Fanhuan前端博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="返还网前端技术博客">
-<meta property="og:url" content="http://fe.fanhuan.com/index.html">
+<meta name="description" content="希望通过Gulp实现的功能1、静态资源文件(js、css、image)的实时更新。2、性能优化(css、js文件压缩)。3、替换(url)。
+源代码与构建代码的分离1234/views/public/release/build
+/views  模板页面源代码。/public 资源文件js、css源代码以及image。/release 构建以后生成的模板页面。/build  构建以后生成的资源文件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端自动化构建之Gulp">
+<meta property="og:url" content="http://fe.fanhuan.com/2016/04/19/introduce-gulp/index.html">
 <meta property="og:site_name" content="返还网前端技术博客">
-<meta property="og:description" content="Fanhuan前端博客">
+<meta property="og:description" content="希望通过Gulp实现的功能1、静态资源文件(js、css、image)的实时更新。2、性能优化(css、js文件压缩)。3、替换(url)。
+源代码与构建代码的分离1234/views/public/release/build
+/views  模板页面源代码。/public 资源文件js、css源代码以及image。/release 构建以后生成的模板页面。/build  构建以后生成的资源文件。">
+<meta property="og:updated_time" content="2016-04-20T08:01:30.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="返还网前端技术博客">
-<meta name="twitter:description" content="Fanhuan前端博客">
+<meta name="twitter:title" content="前端自动化构建之Gulp">
+<meta name="twitter:description" content="希望通过Gulp实现的功能1、静态资源文件(js、css、image)的实时更新。2、性能优化(css、js文件压缩)。3、替换(url)。
+源代码与构建代码的分离1234/views/public/release/build
+/views  模板页面源代码。/public 资源文件js、css源代码以及image。/release 构建以后生成的模板页面。/build  构建以后生成的资源文件。">
 
 
 
@@ -78,7 +85,7 @@
   };
 </script>
 
-  <title> 返还网前端技术博客 </title>
+  <title> 前端自动化构建之Gulp | 返还网前端技术博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -99,9 +106,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -158,9 +163,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -180,112 +185,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/04/20/introduce-env/" itemprop="url">
-                  前端QA、RC、Release环境的思考
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-04-20T14:13:05+08:00" content="2016-04-20">
-              2016-04-20
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>通常我们至少会有三个环境，QA环境，RC环境，Release环境。如果再加上开发环境跟灰度环境的话就有五个。那这么多环境都在跑同一个工程，怎么才能保证各个环境可以随时切换是设计初期就要考虑到的重要环节。</p>
-<h2 id="各个环境的特点"><a href="#各个环境的特点" class="headerlink" title="各个环境的特点"></a>各个环境的特点</h2><p>QA环境(QUALITY ASSURANCE)：测试环境，开发人员提交给QA验收的版本，BUG数未知。代码可能还会有多次改动。<br>RC环境(Release Candidate)：预发布环境，顾名思义，发布前的最后一个版本，一般代码不会再有改动。<br>Release环境：生产环境，正式给用户使用的了。</p>
-<h2 id="资源文件的管理"><a href="#资源文件的管理" class="headerlink" title="资源文件的管理"></a>资源文件的管理</h2><img src="/images/env.jpg">
-<p>一般情况下js、css、image资源文件会有两个版本，开发版本以及正式版本。<br>开发环境：使用工程根目录/public中的资源文件源代码，方便调试。<br>QA环境：QA环境发布的时候会执行Gulp打包脚本，将/public中的源文件打包至/build。QA环境使用/build目录的资源文件。<br>RC环境：RC环境比QA环境多了一个步骤，将/build中的文件同步至CDN。RC环境使用CDN的资源文件。<br>Release环境：与RC一致。</p>
-<h2 id="通过node-config管理配置文件"><a href="#通过node-config管理配置文件" class="headerlink" title="通过node-config管理配置文件"></a>通过node-config管理配置文件</h2><p><a href="https://github.com/lorenwest/node-config" target="_blank" rel="external">https://github.com/lorenwest/node-config</a></p>
-<p>如果想在各个环境做一些定制化的东西，比如我想在Release环境报错的时候把log打出来，或者可以发报警邮件，node-config很好的满足了这个需求。<br>举个栗子，默认情况下我想绑定3333端口，qa环境我想绑定3344端口。<br>default.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;port&quot;:3333</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>qa.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;port&quot;:3344</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>剩下的就只需要在启动的时候设置相应的NODE_ENV就会自动读取了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export NODE_ENV=qa</span><br></pre></td></tr></table></figure></p>
-<p>转载、引用请注明文章出处。</p>
-
-          
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/19/introduce-gulp/" itemprop="url">
-                  前端自动化构建之Gulp
-                </a>
+                前端自动化构建之Gulp
               
             
           </h1>
@@ -325,9 +225,7 @@
       
 
       
-        
-          
-            <h2 id="希望通过Gulp实现的功能"><a href="#希望通过Gulp实现的功能" class="headerlink" title="希望通过Gulp实现的功能"></a>希望通过Gulp实现的功能</h2><p>1、静态资源文件(js、css、image)的实时更新。<br>2、性能优化(css、js文件压缩)。<br>3、替换(url)。</p>
+        <h2 id="希望通过Gulp实现的功能"><a href="#希望通过Gulp实现的功能" class="headerlink" title="希望通过Gulp实现的功能"></a>希望通过Gulp实现的功能</h2><p>1、静态资源文件(js、css、image)的实时更新。<br>2、性能优化(css、js文件压缩)。<br>3、替换(url)。</p>
 <h2 id="源代码与构建代码的分离"><a href="#源代码与构建代码的分离" class="headerlink" title="源代码与构建代码的分离"></a>源代码与构建代码的分离</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/views</span><br><span class="line">/public</span><br><span class="line">/release</span><br><span class="line">/build</span><br></pre></td></tr></table></figure>
 <p>/views  模板页面源代码。<br>/public 资源文件js、css源代码以及image。<br>/release 构建以后生成的模板页面。<br>/build  构建以后生成的资源文件。</p>
 <h2 id="js文件相关"><a href="#js文件相关" class="headerlink" title="js文件相关"></a>js文件相关</h2><p>1、压缩、混淆js代码。<br>2、将js文件中的/public替换成CDN的url。<br>3、给js文件名添加hash并且把映射关系输出到js.manifest文件。<br>4、把所有js文件中的require引用按照js.manifest进行替换，key替换成value。</p>
@@ -339,16 +237,18 @@
 <h2 id="html模板相关"><a href="#html模板相关" class="headerlink" title="html模板相关"></a>html模板相关</h2><p>1、把所有html模板文件中的js、css、image文件分别引用按照js.manifest、css.manifest、image.manifest进行替换，key替换成value。<br>2、将模板文件中的/public替换成CDN的url。</p>
 <p>转载、引用请注明文章出处。</p>
 
-          
-        
       
     </div>
     
     <div>
       
+        
+      
     </div>
 
     <div>
+      
+        
       
     </div>
 
@@ -356,19 +256,32 @@
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/20/introduce-env/" rel="prev" title="前端QA、RC、Release环境的思考">
+                前端QA、RC、Release环境的思考 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -376,6 +289,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -395,8 +312,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/default_avatar.jpg"
@@ -432,6 +358,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#希望通过Gulp实现的功能"><span class="nav-number">1.</span> <span class="nav-text">希望通过Gulp实现的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源代码与构建代码的分离"><span class="nav-number">2.</span> <span class="nav-text">源代码与构建代码的分离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js文件相关"><span class="nav-number">3.</span> <span class="nav-text">js文件相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#image文件相关"><span class="nav-number">4.</span> <span class="nav-text">image文件相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css文件相关"><span class="nav-number">5.</span> <span class="nav-text">css文件相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#html模板相关"><span class="nav-number">6.</span> <span class="nav-text">html模板相关</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -528,6 +465,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
