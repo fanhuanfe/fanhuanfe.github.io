@@ -52,21 +52,30 @@
 
 
 
-<meta name="description" content="缘起通常我们至少会有三个环境，QA环境，RC环境，Release环境。如果再加上开发环境跟灰度环境的话就有五个。那这么多环境都在跑同一个工程，怎么才能保证各个环境可以随时切换是设计初期就要考虑到的重要环节。
-各个环境的特点QA环境(QUALITY ASSURANCE)：测试环境，开发人员提交给QA验收的版本，BUG数未知。代码可能还会有多次改动。RC环境(Release Candidate)：预发">
+<meta name="description" content="weinre的安装如果有node环境的话，直接npm安装就可以了。1npm install weinre -g
+具体请访问:http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html
+weinre的使用假设weinre已经在以下地址运行。http://192.168.1.18:8080
+访问weinre主页1http://192.1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前端QA、RC、Release环境的思考">
-<meta property="og:url" content="http://fe.fanhuan.com/2016/04/20/introduce-env/index.html">
+<meta property="og:title" content="windows环境下web远程调试之weinre">
+<meta property="og:url" content="http://fe.fanhuan.com/2016/04/26/weinre/index.html">
 <meta property="og:site_name" content="返还网前端技术博客">
-<meta property="og:description" content="缘起通常我们至少会有三个环境，QA环境，RC环境，Release环境。如果再加上开发环境跟灰度环境的话就有五个。那这么多环境都在跑同一个工程，怎么才能保证各个环境可以随时切换是设计初期就要考虑到的重要环节。
-各个环境的特点QA环境(QUALITY ASSURANCE)：测试环境，开发人员提交给QA验收的版本，BUG数未知。代码可能还会有多次改动。RC环境(Release Candidate)：预发">
-<meta property="og:image" content="http://fe.fanhuan.com/images/env.jpg">
-<meta property="og:updated_time" content="2016-04-20T12:16:16.022Z">
+<meta property="og:description" content="weinre的安装如果有node环境的话，直接npm安装就可以了。1npm install weinre -g
+具体请访问:http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html
+weinre的使用假设weinre已经在以下地址运行。http://192.168.1.18:8080
+访问weinre主页1http://192.1">
+<meta property="og:image" content="http://fe.fanhuan.com/images/weinre-1.png">
+<meta property="og:image" content="http://fe.fanhuan.com/images/weinre-2.png">
+<meta property="og:image" content="http://fe.fanhuan.com/images/weinre-4.png">
+<meta property="og:image" content="http://fe.fanhuan.com/images/weinre-3.png">
+<meta property="og:updated_time" content="2016-04-26T03:19:03.691Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前端QA、RC、Release环境的思考">
-<meta name="twitter:description" content="缘起通常我们至少会有三个环境，QA环境，RC环境，Release环境。如果再加上开发环境跟灰度环境的话就有五个。那这么多环境都在跑同一个工程，怎么才能保证各个环境可以随时切换是设计初期就要考虑到的重要环节。
-各个环境的特点QA环境(QUALITY ASSURANCE)：测试环境，开发人员提交给QA验收的版本，BUG数未知。代码可能还会有多次改动。RC环境(Release Candidate)：预发">
-<meta name="twitter:image" content="http://fe.fanhuan.com/images/env.jpg">
+<meta name="twitter:title" content="windows环境下web远程调试之weinre">
+<meta name="twitter:description" content="weinre的安装如果有node环境的话，直接npm安装就可以了。1npm install weinre -g
+具体请访问:http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html
+weinre的使用假设weinre已经在以下地址运行。http://192.168.1.18:8080
+访问weinre主页1http://192.1">
+<meta name="twitter:image" content="http://fe.fanhuan.com/images/weinre-1.png">
 
 
 
@@ -84,7 +93,7 @@
   };
 </script>
 
-  <title> 前端QA、RC、Release环境的思考 | 返还网前端技术博客 </title>
+  <title> windows环境下web远程调试之weinre | 返还网前端技术博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -184,7 +193,7 @@
             
             
               
-                前端QA、RC、Release环境的思考
+                windows环境下web远程调试之weinre
               
             
           </h1>
@@ -196,8 +205,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-04-20T14:13:05+08:00" content="2016-04-20">
-              2016-04-20
+            <time itemprop="dateCreated" datetime="2016-04-26T10:51:16+08:00" content="2016-04-26">
+              2016-04-26
             </time>
           </span>
 
@@ -224,15 +233,25 @@
       
 
       
-        <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>通常我们至少会有三个环境，QA环境，RC环境，Release环境。如果再加上开发环境跟灰度环境的话就有五个。那这么多环境都在跑同一个工程，怎么才能保证各个环境可以随时切换是设计初期就要考虑到的重要环节。</p>
-<h2 id="各个环境的特点"><a href="#各个环境的特点" class="headerlink" title="各个环境的特点"></a>各个环境的特点</h2><p>QA环境(QUALITY ASSURANCE)：测试环境，开发人员提交给QA验收的版本，BUG数未知。代码可能还会有多次改动。<br>RC环境(Release Candidate)：预发布环境，顾名思义，发布前的最后一个版本，一般代码不会再有改动。<br>Release环境：生产环境，正式给用户使用的了。</p>
-<h2 id="资源文件的管理"><a href="#资源文件的管理" class="headerlink" title="资源文件的管理"></a>资源文件的管理</h2><img src="/images/env.jpg">
-<p>一般情况下js、css、image资源文件会有两个版本，开发版本以及正式版本。<br>开发环境：使用工程根目录/public中的资源文件源代码，方便调试。<br>QA环境：QA环境发布的时候会执行Gulp打包脚本，将/public中的源文件打包至/build。QA环境使用/build目录的资源文件。<br>RC环境：RC环境比QA环境多了一个步骤，将/build中的文件同步至CDN。RC环境使用CDN的资源文件。<br>Release环境：与RC一致。</p>
-<h2 id="通过node-config管理配置文件"><a href="#通过node-config管理配置文件" class="headerlink" title="通过node-config管理配置文件"></a>通过node-config管理配置文件</h2><p><a href="https://github.com/lorenwest/node-config" target="_blank" rel="external">https://github.com/lorenwest/node-config</a></p>
-<p>如果想在各个环境做一些定制化的东西，比如我想在Release环境报错的时候把log打出来，或者可以发报警邮件，node-config很好的满足了这个需求。<br>举个栗子，默认情况下我想绑定3333端口，qa环境我想绑定3344端口。<br>default.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;port&quot;:3333</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>qa.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;port&quot;:3344</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>剩下的就只需要在启动的时候设置相应的NODE_ENV就会自动读取了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export NODE_ENV=qa</span><br></pre></td></tr></table></figure></p>
-<p>转载、引用请注明文章出处。</p>
+        <h2 id="weinre的安装"><a href="#weinre的安装" class="headerlink" title="weinre的安装"></a>weinre的安装</h2><p>如果有node环境的话，直接npm安装就可以了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install weinre -g</span><br></pre></td></tr></table></figure></p>
+<p>具体请访问:<a href="http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html" target="_blank" rel="external">http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html</a></p>
+<h2 id="weinre的使用"><a href="#weinre的使用" class="headerlink" title="weinre的使用"></a>weinre的使用</h2><p>假设weinre已经在以下地址运行。<br><a href="http://192.168.1.18:8080" target="_blank" rel="external">http://192.168.1.18:8080</a></p>
+<p>访问weinre主页<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.18:8080/</span><br></pre></td></tr></table></figure></p>
+<p>其实使用非常简单，只要在你想调试的页面代码中注入以下js文件就可以了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;http://192.168.1.18:8080/target/target-script-min.js#anonymous&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>通过手机浏览器或者APP Webview访问要调试的页面。<br>比如说DEMO里面的：<a href="http://192.168.1.18:8080/demo/weinre-demo.html" target="_blank" rel="external">http://192.168.1.18:8080/demo/weinre-demo.html</a></p>
+<p>PC Chrome访问<a href="http://192.168.1.18:8080/client/#anonymous" target="_blank" rel="external">http://192.168.1.18:8080/client/#anonymous</a><br>可以看到如下界面：</p>
+<img src="/images/weinre-1.png">
+<p>Targets列出了当前的所有被访问的调试页面，点击其中的一个。再把顶部的Tab切换到Elements。</p>
+<p>如果想看某一个DIV的DOM，鼠标hover上去就可以了。</p>
+<img src="/images/weinre-2.png">
+<p>手机里也会hignlight对应的DIV</p>
+<img src="/images/weinre-4.png">
+<p>当然js console也是可以看到的。</p>
+<img src="/images/weinre-3.png">
+<h2 id="support-platform"><a href="#support-platform" class="headerlink" title="support platform"></a>support platform</h2><p>Weinre support platform<br>　　Support the debug client (browser debugging interface):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Google Chrome</span><br><span class="line">Apple Safari</span><br><span class="line">Other WebKit based browser</span><br></pre></td></tr></table></figure></p>
+<p>　　Support the debug target (need to debug web site or application interface):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The Android browser application</span><br><span class="line">iOS Mobile Safari application</span><br><span class="line">PhoneGap/Cordova</span><br></pre></td></tr></table></figure></p>
+<p>Does not support the debug target:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iOS 3.1.3 and earlier versions</span><br><span class="line">WebOS 1.45 and earlier versions</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -256,17 +275,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/19/introduce-gulp/" rel="next" title="前端自动化构建之Gulp">
-                <i class="fa fa-chevron-left"></i> 前端自动化构建之Gulp
+              <a href="/2016/04/20/introduce-env/" rel="next" title="前端QA、RC、Release环境的思考">
+                <i class="fa fa-chevron-left"></i> 前端QA、RC、Release环境的思考
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/26/weinre/" rel="prev" title="windows环境下web远程调试之weinre">
-                windows环境下web远程调试之weinre <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -366,7 +381,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缘起"><span class="nav-number">1.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各个环境的特点"><span class="nav-number">2.</span> <span class="nav-text">各个环境的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源文件的管理"><span class="nav-number">3.</span> <span class="nav-text">资源文件的管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过node-config管理配置文件"><span class="nav-number">4.</span> <span class="nav-text">通过node-config管理配置文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#weinre的安装"><span class="nav-number">1.</span> <span class="nav-text">weinre的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weinre的使用"><span class="nav-number">2.</span> <span class="nav-text">weinre的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#support-platform"><span class="nav-number">3.</span> <span class="nav-text">support platform</span></a></li></ol></div>
             
           </div>
         </section>
